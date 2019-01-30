@@ -20,7 +20,7 @@ def read_starfile(f):
             header.append(i.strip("\n"))
             if '_rln' in i and '#' in i and  '_rln' not in alldata[count+1] and '#' not in alldata[count+1]:
                 inhead = False
-        else:
+        elif len(i.split())>=1:
             data.append(i.split())
         count +=1
     
@@ -30,7 +30,10 @@ def read_starfile(f):
 if len(sys.argv) != 2:
     sys.exit("USAGE: starfile_get_defocus_range.py <star file>")
 
+
 (labels,header,data) = read_starfile(sys.argv[1])
+
+
 defoci = []
 for i in data:
     defocus = (float(i[labels['_rlnDefocusU ']]) + float(i[labels['_rlnDefocusV ']]))/2.0
